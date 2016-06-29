@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+"""
+This is a simple script to count the number of data sets (position, velocities and forces) in a vasprun.xml output file
+Usage: extratct_parameter.py [vasprun.xml output] > [txt file name]
+"""
+
+import sys
+import os
+import operator
+import math
+import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+
+print "Openning and closing file"
+text_file = open("vasprun.xml", "r")
+text_file.close()
+
+print "Reading characters from the file."
+file = open("vasprun.xml", "r")
+lines = file.readlines()
+file.close()
+
+#look for pattern
+countPosition= 0
+countVelocities= 0
+countForces= 0
+for line in lines:
+        line = line.strip().lower()
+        if line.find( "position" )!= -1:
+                countPosition = countPosition + 1
+        if line.find( "velocities" )!= -1:
+                countVelocities = countVelocities + 1
+        if line.find( "forces" )!= -1:
+                countForces = countForces + 1
+#       print ( line )
+
+#display result 
+print( "position: ", countPosition )
+print( "velocities: ", countVelocities)
+print( "forces: ", countForces )
